@@ -1,5 +1,6 @@
 **/*.o
-pipex
+client
+server
 **/*.swap
 .vscode
 libft/libft.a

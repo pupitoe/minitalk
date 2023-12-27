@@ -1,35 +1,37 @@
-SOURCES = 	main.c \
+SOURCES_CLIENT = 	main.c
 
-HEADERS_F = ft_pipex.h
+SOURCES_SERVER = 	main.c
 
-HEADERS = $(foreach buffer, $(HEADERS_F), headers/$(buffer))
+SOURCES_C = $(foreach buffer, $(SOURCES_CLIENT), client/$(buffer))
+SOURCES_S = $(foreach buffer, $(SOURCES_SERVER), server/$(buffer))
 
-OBJS = $(SOURCES:.c=.o)
+OBJS_S = $(SOURCES_S:.c=.o)
+OBJS_C = $(SOURCES_C:.c=.o)
 
-NAME = pipex 
+NAME_S = server
+NAME_C = client
+NAME = minitalk
 
 CFLAGS = -Wall -Wextra -Werror -g3
 CC = gcc
 
-LIBFT = libft/libft.a
-
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT) $(HEADERS)
-	gcc $(OBJS) $(LIBFT) -o $(NAME)
+$(NAME_C): $(OBJS_C)
+	$(CC) $(CFLAGS) $(OBJS_C) -o $(NAME_C)
+
+$(NAME_S): $(OBJS_S)
+	$(CC) $(CFLAGS) $(OBJS_S) -o $(NAME_S)
+
+$(NAME): $(NAME_C) $(NAME_S)
 
 clean:
-	rm -rf $(OBJS)
-	make -C libft clean
+	rm -rf $(OBJS_C)
+	rm -rf $(OBJS_S)
 
 fclean: clean
-	make -C libft fclean
-	rm -rf $(NAME)
-
-libft: $(LIBFT)
-
-$(LIBFT):
-	make -C libft
+	rm -rf $(NAME_C)
+	rm -rf $(NAME_S)
 
 re: fclean all
 
