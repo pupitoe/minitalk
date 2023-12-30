@@ -2,8 +2,8 @@ SOURCES_CLIENT = 	main.c
 
 SOURCES_SERVER = 	main.c
 
-SOURCES_C = $(foreach buffer, $(SOURCES_CLIENT), client/$(buffer))
-SOURCES_S = $(foreach buffer, $(SOURCES_SERVER), server/$(buffer))
+SOURCES_C = $(foreach buffer, $(SOURCES_CLIENT), dclient/$(buffer))
+SOURCES_S = $(foreach buffer, $(SOURCES_SERVER), dserver/$(buffer))
 
 OBJS_S = $(SOURCES_S:.c=.o)
 OBJS_C = $(SOURCES_C:.c=.o)
