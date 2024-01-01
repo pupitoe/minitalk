@@ -1,50 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_string.c                                    :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 10:29:24 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/02 00:17:53 by tlassere         ###   ########.fr       */
+/*   Created: 2024/01/02 00:22:36 by tlassere          #+#    #+#             */
+/*   Updated: 2024/01/02 00:34:17 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commun.h"
 
-size_t	ft_strlen(char *s)
+int	ft_get_size(int nbr)
 {
-	size_t	i;
+	int len;
 
-	if (s == NULL)
-		return (0);
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	len = 1;
+	while (nbr)
+	{
+		nbr /= 10;
+		len++;
+	}
+	if (len == 1)
+		len++;
+	return (len);	
 }
 
-ssize_t	ft_putcar(int c)
-{
-	return (write(1, &c, 1));
-}
-
-ssize_t	ft_putstr(char *s)
-{
-	if (s == NULL)
-		return (-1);
-	return (write(1, s, ft_strlen(s)));
-}
-
-ssize_t	ft_print_nbr(int nbr)
+char	*itoa(int nbr)
 {
 	char	*str;
-	ssize_t	tmp;
+	int		len;
 
-	str = ft_itoa(nbr);
-	if (str == NULL)
-		return (-1);
-	tmp = write(1, str, ft_strlen(str));
-	free(str);
-	return (tmp);
+	len = ft_get_size(nbr);
+	nbr = malloc(len);
+	if (nbr == NULL)
+		return (NULL);
+	str[len - 1] = '\0';
+	while (len > 1)
+	{
+		str[len - 2] = nbr % 10;
+		nbr /= 10;
+		len--;
+	}
+	return (str);
 }
