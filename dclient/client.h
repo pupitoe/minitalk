@@ -6,11 +6,12 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:01:11 by tlassere          #+#    #+#             */
-/*   Updated: 2023/12/30 10:01:33 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/01 17:23:08 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CLIENT_H
 # define CLIENT_H
+# include "../commun/commun.h"
 
 #endif

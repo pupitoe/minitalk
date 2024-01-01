@@ -3,22 +3,22 @@ SOURCES_SERVER = 	main.c
 SOURCES_COMMUN =	ft_put_string.c
 
 SOURCES_C = $(foreach buffer, $(SOURCES_CLIENT), dclient/$(buffer))
-SOURCES_COM = $(foreach buffer, $(SOURCES_CLIENT), commun/$(buffer))
+SOURCES_COM = $(foreach buffer, $(SOURCES_COMMUN), commun/$(buffer))
 SOURCES_S = $(foreach buffer, $(SOURCES_SERVER), dserver/$(buffer))
 
 OBJS_S = $(SOURCES_S:.c=.o)
 OBJS_C = $(SOURCES_C:.c=.o)
 OBJS_COM = $(SOURCES_COM:.c=.o)
 
-OBJS_S += OBJS_COM
-OBJS_C += OBJS_COM
+OBJS_S += $(OBJS_COM)
+OBJS_C += $(OBJS_COM)
 
 NAME_S = server
 NAME_C = client
 NAME = minitalk
 
 CFLAGS = -Wall -Wextra -Werror -g3
-CC = gcc
+CC = cc
 
 all: $(NAME)
 
