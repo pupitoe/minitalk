@@ -6,12 +6,12 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:07:21 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/02 17:38:28 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/02 20:08:29 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMMUN_H 
-# define COMMUN_H 
+#ifndef COMMUN_H
+# define COMMUN_H
 # include <unistd.h>
 # include <stdlib.h>
 # include <signal.h>

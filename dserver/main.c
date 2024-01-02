@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:02:12 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/02 14:01:30 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/02 20:07:05 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ static int	ft_print_pid(void)
 	return (pid);
 }
 
-int main(void)
+int	main(void)
 {
 	ft_print_pid();
-
 	return (0);
 }
