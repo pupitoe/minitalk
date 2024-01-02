@@ -6,11 +6,11 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:02:07 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/02 20:06:02 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/02 21:41:57 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "client.h"
+# include "../commun/commun.h"
 
 static int	ft_parser(char *str)
 {
@@ -28,7 +28,7 @@ static int	ft_parser(char *str)
 	return (0);
 }
 
-int	ft_atoi(char *str)
+static int	ft_atoi(char *str)
 {
 	size_t	i;
 	int		res;
@@ -66,7 +66,7 @@ static int	ft_socket_car(char c, int pid)
 			buffer = kill(pid, SIGUSR2);
 			ft_print_nbr(0);
 		}
-		if (buffer == -1 || usleep(1000) == -1)
+		if (buffer == -1 || usleep(10) == -1)
 			return (-1);
 		i++;
 	}
