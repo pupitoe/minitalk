@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:02:12 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/03 12:13:52 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/03 12:41:07 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	ft_rep_signal(int signal, int delet)
 	i++;
 	if (i % 8 == 0)
 	{
-		ft_putcar(c);
+		ft_add_car(&buffer, c, i / 8);
 		if (buffer[i / 8] == '\0')
 		{
 			ft_putstr(buffer);
