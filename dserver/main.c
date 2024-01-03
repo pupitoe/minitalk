@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:02:12 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/03 12:41:07 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/03 13:22:04 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@ static int	ft_rep_signal(int signal, int delet)
 	if (delet)
 		return (free(buffer), 0);
 	if (signal == SIGUSR1)
-		c = c | 1 << i % 8; 
+		c = c | 1 << i % 8;
 	i++;
 	if (i % 8 == 0)
 	{
-		ft_add_car(&buffer, c, i / 8);
+		//ft_putcar(c);
+		if (ft_add_car(&buffer, c, i / 8) == -1)
+			return (-1);
 		if (buffer[i / 8] == '\0')
 		{
 			ft_putstr(buffer);
@@ -53,9 +55,12 @@ static int	ft_rep_signal(int signal, int delet)
 static void	ft_get_signal(int signal)
 {
 	if (signal == SIGUSR1 || signal == SIGUSR2)
-		ft_rep_signal(signal, 0);
+	{
+		if (ft_rep_signal(signal, 0) == -1)
+			exit(1);
+	}
 	else
-		exit(1);
+		exit(0);
 }
 
 int	main(void)

@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:29:24 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/03 12:39:21 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/03 13:23:13 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,12 @@ char	*ft_copy_at(char *str, size_t size, int c)
 
 int	ft_add_car(char **str, int c, size_t size)
 {
-	if (*str != NULL)
-		free(*str);
-	*str = ft_copy_at(*str, size, c);
+	char	*buffer;
+
+	buffer = *str;
+	*str = ft_copy_at(buffer, size, c);
+	if (buffer != NULL)
+		free(buffer);
 	if (*str == NULL)
 		return (-1);
 	return (0);
