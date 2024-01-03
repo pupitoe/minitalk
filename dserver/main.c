@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:02:12 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/03 17:19:50 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/03 18:36:45 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	main(void)
 	ft_print_pid();
 	signal(SIGUSR1, &ft_get_signal);
 	signal(SIGUSR2, &ft_get_signal);
+
 	while (1)
 		;
 	return (0);
