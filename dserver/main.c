@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:02:12 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/02 21:45:16 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/03 12:13:52 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,45 @@ static int	ft_print_pid(void)
 	return (pid);
 }
 
-static void ft_rep_signal(int signal)
+static int	ft_rep_signal(int signal, int delet)
 {
-	static int	i = 0;
-	static char	c = 0;
+	static size_t	i = 0;
+	static char		c = 0;
+	static char		*buffer = NULL;
 	
+	if (delet)
+		return (free(buffer), 0);
 	if (signal == SIGUSR1)
-		c = c | 1 << i; 
+		c = c | 1 << i % 8; 
 	i++;
-	if (i != 8)
-		return ;
-	ft_putcar(c);	
-	c = 0;
-	i = 0;
+	if (i % 8 == 0)
+	{
+		ft_putcar(c);
+		if (buffer[i / 8] == '\0')
+		{
+			ft_putstr(buffer);
+			free(buffer);
+			buffer = NULL;
+			i = 0;
+		}
+		c = 0;
+	}
+	return (0);
+}
+
+static void	ft_get_signal(int signal)
+{
+	if (signal == SIGUSR1 || signal == SIGUSR2)
+		ft_rep_signal(signal, 0);
+	else
+		exit(1);
 }
 
 int	main(void)
 {
 	ft_print_pid();
-	signal(SIGUSR1, &ft_rep_signal);
-	signal(SIGUSR2, &ft_rep_signal);
+	signal(SIGUSR1, &ft_get_signal);
+	signal(SIGUSR2, &ft_get_signal);
 	while (1)
 		;
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:02:07 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/02 21:41:57 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/03 12:36:49 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ static int	ft_socket_string(char *str, int pid)
 		ft_putcar('\n');
 		i++;
 	}
+	if (ft_socket_car(0, pid))
+		return (-1);
 	return (0);
 }
 
