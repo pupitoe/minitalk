@@ -1,50 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_string.c                                    :+:      :+:    :+:   */
+/*   ft_put_string2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 10:29:24 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/03 13:47:05 by tlassere         ###   ########.fr       */
+/*   Created: 2024/01/03 13:47:29 by tlassere          #+#    #+#             */
+/*   Updated: 2024/01/03 13:47:49 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commun.h"
 
-size_t	ft_strlen(char *s)
+char	*ft_copy_at(char *str, size_t size, int c)
 {
+	char	*buffer;
 	size_t	i;
 
-	if (s == NULL)
-		return (0);
+	buffer = malloc(size * sizeof(char));
+	if (buffer == NULL)
+		return (NULL);
 	i = 0;
-	while (s[i])
+	while (i < size - 1)
+	{
+		buffer[i] = str[i];
 		i++;
-	return (i);
+	}
+	buffer[size - 1] = c;
+	return (buffer);
 }
 
-ssize_t	ft_putcar(int c)
+int	ft_add_car(char **str, int c, size_t size)
 {
-	return (write(1, &c, 1));
-}
+	char	*buffer;
 
-ssize_t	ft_putstr(char *s)
-{
-	if (s == NULL)
+	buffer = *str;
+	*str = ft_copy_at(buffer, size, c);
+	if (buffer != NULL)
+		free(buffer);
+	if (*str == NULL)
 		return (-1);
-	return (write(1, s, ft_strlen(s)));
-}
-
-ssize_t	ft_print_nbr(int nbr)
-{
-	char	*str;
-	ssize_t	tmp;
-
-	str = ft_itoa(nbr);
-	if (str == NULL)
-		return (-1);
-	tmp = write(1, str, ft_strlen(str));
-	free(str);
-	return (tmp);
+	return (0);
 }

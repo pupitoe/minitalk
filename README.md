@@ -11,5 +11,3 @@ fonction documentation :
 - [ ] pause
 - [ ] sleep
 - [ ] usleep
-
-

@@ -6,11 +6,11 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:02:12 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/03 13:22:04 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/03 13:59:14 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../commun/commun.h"
+#include "../commun/commun.h"
 
 static int	ft_print_pid(void)
 {
@@ -29,7 +29,7 @@ static int	ft_rep_signal(int signal, int delet)
 	static size_t	i = 0;
 	static char		c = 0;
 	static char		*buffer = NULL;
-	
+
 	if (delet)
 		return (free(buffer), 0);
 	if (signal == SIGUSR1)
@@ -37,7 +37,6 @@ static int	ft_rep_signal(int signal, int delet)
 	i++;
 	if (i % 8 == 0)
 	{
-		//ft_putcar(c);
 		if (ft_add_car(&buffer, c, i / 8) == -1)
 			return (-1);
 		if (buffer[i / 8] == '\0')
