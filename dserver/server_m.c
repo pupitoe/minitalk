@@ -6,12 +6,11 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:24:08 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/04 18:56:38 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/04 23:07:37 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "server.h"
-
 
 static int	ft_rep_signal(int signal, int delet)
 {
