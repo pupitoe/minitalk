@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:24:08 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/04 18:37:49 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/04 18:53:42 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ static int	ft_rep_signal(int signal, int delet)
 	static size_t	size = 0;
 	static char		*buffer = NULL;
 
-	if (i == 0)
+	if (delet == 0 && i == 0)
 	{
 		size++;
 		if (ft_add_car(&buffer, 0, size) == -1)
 			return (-1);
 	}
-	if (signal == SIGUSR1)
+	if (delet == 0 && signal == SIGUSR1)
 		buffer[size - 1] = buffer[size - 1] | 1 << i % 8;
-	if (++i == 8)
+	if (delet == 0 && ++i == 8)
 		i = 0;
-	if (buffer[size - 1] == '\0' && i == 0)
+	if (delet == 0 && buffer[size - 1] == '\0' && i == 0)
 		ft_putstr(buffer);
-	if ((buffer[size - 1] == '\0' && i == 0) || delet)
+	if (delet || (buffer[size - 1] == '\0' && i == 0))
 	{
 		free(buffer);
 		buffer = NULL;
@@ -49,12 +49,14 @@ void	ft_get_signal(int signal, siginfo_t *info, void *ucontext)
 	else if (client_pid != info->si_pid)
 	{
 		client_pid = info->si_pid;
-		if (ft_rep_signal(0, 1) == -1)
-			exit(1);
+		ft_rep_signal(0, 1);
 	}
 	if (ft_rep_signal(signal, 0) == -1)
 		exit(1);
 	if (kill(client_pid, SIGUSR1) == -1)
+	{
+		ft_rep_signal(0, 1);
 		exit(1);
+	}
 	ucontext++;
 }
