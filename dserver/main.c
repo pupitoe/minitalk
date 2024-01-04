@@ -6,15 +6,15 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:02:12 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/03 18:36:45 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/04 01:13:59 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../commun/commun.h"
 
-static int	ft_print_pid(void)
+static pid_t	ft_print_pid(void)
 {
-	int	pid;
+	pid_t	pid;
 
 	pid = getpid();
 	ft_putstr("Server pid : ");
@@ -51,8 +51,18 @@ static int	ft_rep_signal(int signal, int delet)
 	return (0);
 }
 
-static void	ft_get_signal(int signal)
+
+#include <stdio.h>
+
+static void	ft_get_signal(int signal, siginfo_t *info, void *ucontext)
 {
+	ucontext++;
+	
+	//ft_print_nbr((int)info->si_pid);
+	//ft_putcar('\n');
+	//printf("%d\n", info->si_pid);
+	info++;
+
 	if (signal == SIGUSR1 || signal == SIGUSR2)
 	{
 		if (ft_rep_signal(signal, 0) == -1)
@@ -64,10 +74,13 @@ static void	ft_get_signal(int signal)
 
 int	main(void)
 {
+	struct sigaction sa;
 	ft_print_pid();
-	signal(SIGUSR1, &ft_get_signal);
-	signal(SIGUSR2, &ft_get_signal);
-
+	ft_memset(&sa, 0, sizeof(struct sigaction));
+	sa.sa_flags = SA_SIGINFO; // rechercher sont utiliter dans le man uwu je suis un gros debile ui car je cherche pas se qu'il faut comme un connard xoxo;
+	sa.sa_sigaction = &ft_get_signal;
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
 		;
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:02:07 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/03 13:52:21 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/04 00:27:51 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	ft_atoi(char *str)
 	return (res);
 }
 
-static int	ft_socket_car(char c, int pid)
+static int	ft_socket_car(char c, pid_t pid)
 {
 	int	i;
 	int	buffer;
@@ -67,7 +67,7 @@ static int	ft_socket_car(char c, int pid)
 	return (0);
 }
 
-static int	ft_socket_string(char *str, int pid)
+static int	ft_socket_string(char *str, pid_t pid)
 {
 	size_t	i;
 
@@ -85,7 +85,7 @@ static int	ft_socket_string(char *str, int pid)
 
 int	main(int argc, char **argv)
 {
-	int	pid;
+	pid_t	pid;
 
 	if (argc != 3)
 		return (ft_putstr("Invalid arguments\n"));
@@ -96,5 +96,8 @@ int	main(int argc, char **argv)
 		return (ft_putstr("PID overflow\n"));
 	if (ft_socket_string(argv[2], pid) == -1)
 		return (ft_putstr("Signal transmission error\n"));
+
+
+	ft_print_nbr(getpid());
 	return (0);
 }

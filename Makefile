@@ -2,6 +2,7 @@ SOURCES_CLIENT = 	main.c
 SOURCES_SERVER = 	main.c
 SOURCES_COMMUN =	ft_put_string.c \
 					ft_put_string2.c \
+					ft_memset.c \
 					ft_itoa.c
 
 SOURCES_C = $(foreach buffer, $(SOURCES_CLIENT), dclient/$(buffer))

@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:07:21 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/03 12:39:47 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/03 18:48:48 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ ssize_t	ft_print_nbr(int nbr);
 char	*ft_itoa(int nbr);
 char	*ft_copy_at(char *str, size_t size, int c);
 int		ft_add_car(char **str, int c, size_t size);
+void	*ft_memset(void *s, int c, size_t n);
 
 #endif
