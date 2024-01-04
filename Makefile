@@ -5,7 +5,8 @@ SOURCES_COMMUN =	ft_put_string.c \
 					ft_put_string2.c \
 					ft_memset.c \
 					ft_itoa.c
-SOURCES_CLIENT_BONUS = 	client_bonus.c
+SOURCES_CLIENT_BONUS = 	client_bonus.c \
+						client_bonus_handler.c
 SOURCES_SERVER_BONUS = 	main.c \
 						server_bonus.c
 

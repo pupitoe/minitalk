@@ -6,11 +6,11 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:09:39 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/04 14:50:35 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/04 18:34:36 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../commun/commun.h"
+#include "client_bonus.h"
 
 static int	ft_parser(char *str)
 {
@@ -82,12 +82,6 @@ static int	ft_socket_string(char *str, pid_t pid)
 	if (ft_socket_car(0, pid))
 		return (-1);
 	return (0);
-}
-
-void handler(int signal)
-{
-	(void)signal;
-	return ;
 }
 
 int	main(int argc, char **argv)
