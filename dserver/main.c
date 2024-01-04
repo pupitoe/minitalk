@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:02:12 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/04 02:43:01 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/04 02:59:21 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,12 @@ static void	ft_get_signal(int signal, siginfo_t *info, void *ucontext)
 	else if (client_pid != info->si_pid)
 	{
 		client_pid = info->si_pid;
-		ft_rep_signal(0, 1);
-	}
-	ucontext++;
-
-	if (signal == SIGUSR1 || signal == SIGUSR2)
-	{
-		if (ft_rep_signal(signal, 0) == -1)
+		if (ft_rep_signal(0, 1) == -1)
 			exit(1);
 	}
-	else
-		exit(0);
+	if (ft_rep_signal(signal, 0) == -1)
+		exit(1);
+	ucontext++;
 }
 
 int	main(void)
@@ -79,7 +74,7 @@ int	main(void)
 	struct sigaction sa;
 	ft_print_pid();
 	ft_memset(&sa, 0, sizeof(struct sigaction));
-	sa.sa_flags = SA_SIGINFO; // rechercher sont utiliter dans le man uwu je suis un gros debile ui car je cherche pas se qu'il faut comme un connard xoxo;
+	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = &ft_get_signal;
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
