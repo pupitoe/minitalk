@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:02:07 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/04 00:27:51 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/04 02:46:03 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static int	ft_socket_string(char *str, pid_t pid)
 
 int	main(int argc, char **argv)
 {
-	pid_t	pid;
+	int	pid;
 
 	if (argc != 3)
 		return (ft_putstr("Invalid arguments\n"));
@@ -96,8 +96,5 @@ int	main(int argc, char **argv)
 		return (ft_putstr("PID overflow\n"));
 	if (ft_socket_string(argv[2], pid) == -1)
 		return (ft_putstr("Signal transmission error\n"));
-
-
-	ft_print_nbr(getpid());
 	return (0);
 }

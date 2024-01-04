@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:02:12 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/04 01:13:59 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/04 02:43:01 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ static int	ft_rep_signal(int signal, int delet)
 	static char		c = 0;
 	static char		*buffer = NULL;
 
-	if (delet)
-		return (free(buffer), 0);
 	if (signal == SIGUSR1)
 		c = c | 1 << i % 8;
 	i++;
@@ -40,28 +38,32 @@ static int	ft_rep_signal(int signal, int delet)
 		if (ft_add_car(&buffer, c, i / 8) == -1)
 			return (-1);
 		if (buffer[i / 8] == '\0')
-		{
 			ft_putstr(buffer);
-			free(buffer);
-			buffer = NULL;
-			i = 0;
-		}
 		c = 0;
 	}
+	if ((buffer && buffer[i / 8] == '\0') || delet)
+	{
+		free(buffer);
+		buffer = NULL;
+		i = 0;
+	}
+	if (delet)
+		c = 0;
 	return (0);
 }
 
-
-#include <stdio.h>
-
 static void	ft_get_signal(int signal, siginfo_t *info, void *ucontext)
 {
+	static pid_t	client_pid = -1;
+
+	if (client_pid == -1)
+		client_pid = info->si_pid;
+	else if (client_pid != info->si_pid)
+	{
+		client_pid = info->si_pid;
+		ft_rep_signal(0, 1);
+	}
 	ucontext++;
-	
-	//ft_print_nbr((int)info->si_pid);
-	//ft_putcar('\n');
-	//printf("%d\n", info->si_pid);
-	info++;
 
 	if (signal == SIGUSR1 || signal == SIGUSR2)
 	{
