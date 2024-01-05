@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:24:08 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/04 18:53:42 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/05 12:21:39 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	ft_get_signal(int signal, siginfo_t *info, void *ucontext)
 	}
 	if (ft_rep_signal(signal, 0) == -1)
 		exit(1);
+	usleep(100);
 	if (kill(client_pid, SIGUSR1) == -1)
 	{
 		ft_rep_signal(0, 1);
