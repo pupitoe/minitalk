@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:09:39 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/06 19:15:28 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/06 19:57:14 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ static int	ft_socket_string(char *str, pid_t pid)
 
 int	main(int argc, char **argv)
 {
-	struct sigaction sa;
-	int	pid;
+	struct sigaction	sa;
+	int					pid;
 
 	if (argc != 3)
 		return (ft_putstr("Invalid arguments\n"));
