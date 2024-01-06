@@ -6,11 +6,13 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:02:12 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/04 18:38:22 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/06 17:54:33 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "server.h"
+
+int	g_free_instruction = -1;
 
 static pid_t	ft_print_pid(void)
 {
@@ -35,6 +37,15 @@ int	main(void)
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
-		;
+	{
+		sleep(5);
+		if (g_free_instruction == 0)
+		{
+			g_free_instruction--;
+			ft_rep_signal(0, 1);
+		}
+		if (g_free_instruction > 0)
+			g_free_instruction--;
+	}
 	return (0);
 }

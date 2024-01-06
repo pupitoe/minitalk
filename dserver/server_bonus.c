@@ -6,13 +6,13 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:24:08 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/05 12:21:39 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/06 17:39:48 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "server.h"
 
-static int	ft_rep_signal(int signal, int delet)
+int	ft_rep_signal(int signal, int delet)
 {
 	static int		i = 0;
 	static size_t	size = 0;
@@ -59,5 +59,6 @@ void	ft_get_signal(int signal, siginfo_t *info, void *ucontext)
 		ft_rep_signal(0, 1);
 		exit(1);
 	}
+	g_free_instruction = 3;
 	ucontext++;
 }
