@@ -6,11 +6,13 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:09:39 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/05 12:25:27 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/06 19:15:28 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "client_bonus.h"
+
+int	g_pid_server = 0;
 
 static int	ft_parser(char *str)
 {
@@ -86,6 +88,7 @@ static int	ft_socket_string(char *str, pid_t pid)
 
 int	main(int argc, char **argv)
 {
+	struct sigaction sa;
 	int	pid;
 
 	if (argc != 3)
@@ -95,7 +98,11 @@ int	main(int argc, char **argv)
 	pid = ft_atoi(argv[1]);
 	if (pid == -1)
 		return (ft_putstr("PID overflow\n"));
-	signal(SIGUSR1, &handler);
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = &ft_client_handler;
+	if (sigaction(SIGUSR1, &sa, NULL) == -1)
+		return (ft_putstr("SIGACTION fails\n"));
+	g_pid_server = pid;
 	if (ft_socket_string(argv[2], pid) == -1)
 		return (ft_putstr("Signal transmission error\n"));
 	return (0);
