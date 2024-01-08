@@ -6,23 +6,11 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:29:24 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/03 13:47:05 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/08 21:46:03 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commun.h"
-
-size_t	ft_strlen(char *s)
-{
-	size_t	i;
-
-	if (s == NULL)
-		return (0);
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
 
 ssize_t	ft_putcar(int c)
 {
@@ -41,7 +29,7 @@ ssize_t	ft_print_nbr(int nbr)
 	char	*str;
 	ssize_t	tmp;
 
-	str = ft_itoa(nbr);
+	str = ft_itoa_over(nbr);
 	if (str == NULL)
 		return (-1);
 	tmp = write(1, str, ft_strlen(str));

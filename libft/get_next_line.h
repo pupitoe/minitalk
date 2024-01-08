@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   commun.h                                           :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 10:07:21 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/08 21:46:46 by tlassere         ###   ########.fr       */
+/*   Created: 2023/10/20 20:20:47 by tlassere          #+#    #+#             */
+/*   Updated: 2023/11/14 20:53:29 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMMUN_H
-# define COMMUN_H
-# include <unistd.h>
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# define BUFFER_SIZE 42
 # include <stdlib.h>
-# include <signal.h>
-# include <sys/types.h>
-# include "../libft/libft.h"
+# include <unistd.h>
 
-ssize_t	ft_putstr(char *s);
-ssize_t	ft_putcar(int c);
-ssize_t	ft_print_nbr(int nbr);
-char	*ft_itoa_over(int nbr);
-char	*ft_add_car_str(char *str, size_t size, int c);
-int		ft_add_car(char **str, int c, size_t size);
+int		ft_check_buffer(char *buffer, int fd);
+char	*get_next_line(int fd);
+char	*ft_line(char *s1, char *s2, size_t cp_at);
 
 #endif

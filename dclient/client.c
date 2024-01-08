@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 10:02:07 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/06 17:56:32 by tlassere         ###   ########.fr       */
+/*   Created: 2024/01/04 14:09:39 by tlassere          #+#    #+#             */
+/*   Updated: 2024/01/08 23:19:27 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../commun/commun.h"
+#include "client.h"
+
+int	g_pid_server = 0;
 
 static int	ft_parser(char *str)
 {
@@ -28,7 +30,7 @@ static int	ft_parser(char *str)
 	return (0);
 }
 
-static int	ft_atoi(char *str)
+static int	ft_atoi_over(char *str)
 {
 	size_t	i;
 	int		res;
@@ -60,8 +62,9 @@ static int	ft_socket_car(char c, pid_t pid)
 			buffer = kill(pid, SIGUSR1);
 		else
 			buffer = kill(pid, SIGUSR2);
-		if (buffer == -1 || usleep(100) == -1)
+		if (buffer == -1)
 			return (-1);
+		pause();
 		i++;
 	}
 	return (0);
@@ -85,15 +88,21 @@ static int	ft_socket_string(char *str, pid_t pid)
 
 int	main(int argc, char **argv)
 {
-	int	pid;
+	struct sigaction	sa;
+	int					pid;
 
 	if (argc != 3)
 		return (ft_putstr("Invalid arguments\n"));
 	if (ft_parser(argv[1]) == -1)
 		return (ft_putstr("The first argument is not the PID\n"));
-	pid = ft_atoi(argv[1]);
+	pid = ft_atoi_over(argv[1]);
 	if (pid == -1)
 		return (ft_putstr("PID overflow\n"));
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = &ft_client_handler;
+	if (sigaction(SIGUSR1, &sa, NULL) == -1)
+		return (ft_putstr("SIGACTION fails\n"));
+	g_pid_server = pid;
 	if (ft_socket_string(argv[2], pid) == -1)
 		return (ft_putstr("Signal transmission error\n"));
 	return (0);

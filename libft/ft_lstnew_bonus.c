@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   commun.h                                           :+:      :+:    :+:   */
+/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 10:07:21 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/08 21:46:46 by tlassere         ###   ########.fr       */
+/*   Created: 2023/10/19 14:10:56 by tlassere          #+#    #+#             */
+/*   Updated: 2023/10/24 15:45:41 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMMUN_H
-# define COMMUN_H
-# include <unistd.h>
-# include <stdlib.h>
-# include <signal.h>
-# include <sys/types.h>
-# include "../libft/libft.h"
+#include "libft.h"
 
-ssize_t	ft_putstr(char *s);
-ssize_t	ft_putcar(int c);
-ssize_t	ft_print_nbr(int nbr);
-char	*ft_itoa_over(int nbr);
-char	*ft_add_car_str(char *str, size_t size, int c);
-int		ft_add_car(char **str, int c, size_t size);
+t_list	*ft_lstnew(void *content)
+{
+	t_list	*lst;
 
-#endif
+	lst = malloc(sizeof(t_list));
+	if (lst == NULL)
+		return (NULL);
+	lst->content = content;
+	lst->next = NULL;
+	return (lst);
+}

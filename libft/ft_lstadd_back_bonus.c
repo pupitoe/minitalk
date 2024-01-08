@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client_bonus.h                                     :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 18:33:33 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/06 19:59:28 by tlassere         ###   ########.fr       */
+/*   Created: 2023/10/24 15:43:36 by tlassere          #+#    #+#             */
+/*   Updated: 2023/10/24 15:43:43 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CLIENT_BONUS_H
-# define CLIENT_BONUS_H
-# include "../commun/commun.h"
+#include "libft.h"
 
-void	ft_client_handler(int signal, siginfo_t *info, void *context);
+void	ft_lstadd_back(t_list **lst, t_list *new)
+{
+	t_list	*buff;
 
-extern pid_t	g_pid_server;
-
-#endif
+	if (lst == NULL || new == NULL)
+		return ;
+	buff = ft_lstlast(*lst);
+	if (buff == NULL)
+		ft_lstadd_front(lst, new);
+	else
+		buff->next = new;
+}

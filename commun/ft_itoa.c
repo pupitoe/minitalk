@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 00:22:36 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/02 20:08:53 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/08 21:45:45 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	ft_get_size(int nbr)
 	return (len);
 }
 
-char	*ft_itoa(int nbr)
+char	*ft_itoa_over(int nbr)
 {
 	char	*str;
 	int		len;

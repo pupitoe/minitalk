@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client_bonus_handler.c                             :+:      :+:    :+:   */
+/*   ft_strcmp_s2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 18:32:42 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/06 20:19:48 by tlassere         ###   ########.fr       */
+/*   Created: 2023/11/01 12:28:19 by tlassere          #+#    #+#             */
+/*   Updated: 2023/11/01 13:11:04 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "client_bonus.h"
+#include "libft.h"
 
-void	ft_client_handler(int signal, siginfo_t *info, void *context)
+int	ft_strcmp_s2(const char *s1, const char *s2)
 {
-	if (info->si_pid != g_pid_server)
-	{
-		ft_putstr("Another prossesuce sent a signal\n");
-		exit(1);
-		return ;
-	}
-	if (signal != SIGUSR1)
-		return ;
-	ft_putstr("Get reception\n");
-	(void)context;
-	return ;
+	return (ft_strncmp(s1, s2, ft_strlen(s2)));
 }
