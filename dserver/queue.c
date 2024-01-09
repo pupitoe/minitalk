@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 00:27:39 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/09 15:10:29 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/09 17:51:01 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	ft_delete_queue(t_list **queue)
 {
 	t_list	*buffer;
 
+	if (queue == NULL || *queue == NULL)
+		return ;
 	buffer = (*queue)->next;
 	ft_lstdelone(*queue, &ft_free_queue);
 	*queue = buffer;

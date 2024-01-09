@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:09:39 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/09 01:46:48 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/09 19:16:56 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,45 @@ static int	ft_socket_string(char *str, pid_t pid)
 	return (0);
 }
 
+static int	ft_push_nbr(size_t nbr, pid_t pid)
+{
+	int	buffer;
+
+	buffer = 0;
+	if (nbr < 10)
+		return (ft_socket_car(nbr + '0', pid));
+	if (ft_push_nbr(nbr / 10, pid) == -1)
+		return (-1);
+	return (ft_push_nbr(nbr % 10, pid));
+}
+
+#include <stdio.h>
+
+static int	ft_push_len(char *str, pid_t pid)
+{
+	size_t	len;
+	int		buffer;
+	size_t		i;
+
+	len = ft_strlen(str);
+	i = 0;
+	printf("lem : %zu\n", len);
+	while (i < sizeof(size_t) * 8)
+	{
+		if ((len & (1 << i)) != 0)
+			buffer = kill(pid, SIGUSR1);
+		else
+			buffer = kill(pid, SIGUSR2);
+		if (buffer == -1)
+			return (-1);
+		pause();
+		i++;
+	}
+	if (ft_push_nbr(len, pid) == -1)
+		return (-1);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	struct sigaction	sa;
@@ -104,6 +143,8 @@ int	main(int argc, char **argv)
 		return (ft_putstr("SIGACTION fails\n"));
 	g_pid_server = pid;
 	if (ft_call_server(pid) == -1)
+		return (ft_putstr("Signal transmission error\n"));
+	if (ft_push_len(argv[2], pid) == -1)
 		return (ft_putstr("Signal transmission error\n"));
 	if (ft_socket_string(argv[2], pid) == -1)
 		return (ft_putstr("Signal transmission error\n"));

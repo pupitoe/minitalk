@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:24:08 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/09 15:28:44 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/09 19:24:12 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 int	ft_rep_signal(int signal, t_client *client)
 {
-	if (client->c_bite == 0)
+	if (client->c_bit == 0)
 	{
 		client->size += 1;
 		if (ft_add_car(&(client->curent_str), 0, client->size) == -1)
 			return (MALLOC_FAIL);
 	}
 	if (signal == SIGUSR1)
-		client->curent_str[client->size - 1] |= 1 << client->c_bite;
-	if (++(client->c_bite) == 8)
-		client->c_bite = 0;
-	if (client->curent_str[client->size - 1] == '\0' && client->c_bite == 0)
+		client->curent_str[client->size - 1] |= 1 << client->c_bit;
+	if (++(client->c_bit) == 8)
+		client->c_bit = 0;
+	if (client->curent_str[client->size - 1] == '\0' && client->c_bit == 0)
 	{
 		ft_putstr(client->curent_str);
 		return (FULL_STR);
@@ -34,26 +34,62 @@ int	ft_rep_signal(int signal, t_client *client)
 
 int	ft_tcp_client(pid_t pid)
 {
-	usleep(100);
+	usleep(50);
 	if (kill(pid, SIGUSR1) == -1)
 		return (-1);
 	return (0);
 }
 
+//#include <stdio.h>
+
+int	ft_get_size(t_client *client, int signal)
+{
+	if (signal == SIGUSR1)
+		client->c_buffer |= 1 << client->c_bit;
+	//if (signal == SIGUSR2)
+	//	printf("a\n");
+	//else
+	//	printf("b\n");
+	client->c_bit += 1;
+	//printf("taill : %d\n", client->c_bit);
+	//printf("size %zu\n", client->size);
+	if (client->c_bit == sizeof(size_t) * 8)
+	{
+		client->c_bit = 0;
+		//printf("size %zu\n", client->size);
+		return (GET_FULL_SIZE);
+	}
+	//if (client->c_bit == 8)
+	//{
+	//	client->c_bit = 0;
+	//	client->c_buffer = 0;
+	//	printf("%c\n%zu\n", client->c_buffer, client->size);
+	//	client->size = client->size * 10 + client->c_buffer - '0';
+	//}
+	return (FINISH_PACKET);
+}
+
 int	ft_current_client(t_client *client, int signal)
 {
 	int	buffer;
+	(void)ft_get_size;
 
 	g_free_instruction = 3;
 	buffer = 0;
-	if (client->action == 0)
+	if (client->action == NO_ACTION)
 	{
-		client->action += 1;
+		client->action = PUSH_FIRST_PACKET;
 		buffer = ft_tcp_client(client->client_pid);
 	}
-	else if (client->action == 1)
+	else if (client->action == PUSH_FIRST_PACKET)
+	{
+		buffer = ft_get_size(client, signal);
+		if (buffer == GET_FULL_SIZE)
+			client->action = REP_SIZE;
+	}
+	else if (client->action == REP_SIZE)
 		buffer = ft_rep_signal(signal, client);
-	if (buffer == FINISH_PACKET)
+	if (buffer == FINISH_PACKET || buffer == GET_FULL_SIZE)
 		buffer = ft_tcp_client(client->client_pid);
 	else if (buffer == FULL_STR)
 	{

@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:24:24 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/09 15:09:38 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:17:44 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define FINISH_PACKET 69
 # define NO_ACTION 0
 # define PUSH_FIRST_PACKET 1
+# define GET_FULL_SIZE 5
 # define REP_SIZE 2
 # define REP_STR 3
 
@@ -26,7 +27,8 @@ typedef struct s_client
 	int		action;
 	char	*curent_str;
 	size_t	size;
-	int		c_bite;
+	int		c_bit;
+	char	c_buffer;
 }				t_client;
 
 int		ft_queue(pid_t client, t_list **queue);
