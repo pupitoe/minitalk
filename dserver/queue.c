@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 00:27:39 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/09 14:14:03 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/09 14:23:17 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,22 @@ int	ft_check_content(t_list *lst, pid_t client)
 	return (ft_check_content(lst->next, client));
 }
 
+void ft_free_queue(void *cur_client)
+{
+	t_client *client;
+
+	client = cur_client; 
+	if (client->curent_str)
+		free(client->curent_str);
+	free(cur_client);
+}
+
 void	ft_delete_queue(t_list **queue)
 {
 	t_list *buffer;
 
 	buffer = (*queue)->next;
-	ft_lstdelone(*queue, &free);
+	ft_lstdelone(*queue, &ft_free_queue);
 	*queue = buffer;
 }
 
