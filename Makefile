@@ -6,6 +6,7 @@ SOURCES_CLIENT = 	main.c \
 					ft_call_server.c
 SOURCES_SERVER = 	main.c \
 					server.c \
+					ft_tcp.c \
 					queue.c
 
 SOURCES_C = $(foreach buffer, $(SOURCES_CLIENT), dclient/$(buffer))

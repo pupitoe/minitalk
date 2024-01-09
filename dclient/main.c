@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:09:39 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/09 19:16:56 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/09 20:22:41 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,82 +47,6 @@ static int	ft_atoi_over(char *str)
 		i++;
 	}
 	return (res);
-}
-
-static int	ft_socket_car(char c, pid_t pid)
-{
-	int	i;
-	int	buffer;
-
-	i = 0;
-	buffer = 0;
-	while (i < 8)
-	{
-		if ((c & (1 << i)) != 0)
-			buffer = kill(pid, SIGUSR1);
-		else
-			buffer = kill(pid, SIGUSR2);
-		if (buffer == -1)
-			return (-1);
-		pause();
-		i++;
-	}
-	return (0);
-}
-
-static int	ft_socket_string(char *str, pid_t pid)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (ft_socket_car(str[i], pid))
-			return (-1);
-		i++;
-	}
-	if (ft_socket_car(0, pid))
-		return (-1);
-	return (0);
-}
-
-static int	ft_push_nbr(size_t nbr, pid_t pid)
-{
-	int	buffer;
-
-	buffer = 0;
-	if (nbr < 10)
-		return (ft_socket_car(nbr + '0', pid));
-	if (ft_push_nbr(nbr / 10, pid) == -1)
-		return (-1);
-	return (ft_push_nbr(nbr % 10, pid));
-}
-
-#include <stdio.h>
-
-static int	ft_push_len(char *str, pid_t pid)
-{
-	size_t	len;
-	int		buffer;
-	size_t		i;
-
-	len = ft_strlen(str);
-	i = 0;
-	printf("lem : %zu\n", len);
-	while (i < sizeof(size_t) * 8)
-	{
-		if ((len & (1 << i)) != 0)
-			buffer = kill(pid, SIGUSR1);
-		else
-			buffer = kill(pid, SIGUSR2);
-		if (buffer == -1)
-			return (-1);
-		pause();
-		i++;
-	}
-	if (ft_push_nbr(len, pid) == -1)
-		return (-1);
-	return (0);
 }
 
 int	main(int argc, char **argv)

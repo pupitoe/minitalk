@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:24:08 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/09 20:09:38 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/09 20:16:18 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,6 @@ int	ft_rep_signal(int signal, t_client *client)
 	return (FINISH_PACKET);
 }
 
-int	ft_tcp_client(pid_t pid)
-{
-	usleep(50);
-	if (kill(pid, SIGUSR1) == -1)
-		return (-1);
-	return (0);
-}
-
 int	ft_get_size(t_client *client, int signal)
 {
 	if (signal == SIGUSR1)
@@ -58,7 +50,6 @@ int	ft_get_size(t_client *client, int signal)
 int	ft_current_client(t_client *client, int signal)
 {
 	int	buffer;
-	(void)ft_get_size;
 
 	g_free_instruction = 3;
 	buffer = 0;
