@@ -6,13 +6,13 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 00:27:39 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/09 14:23:17 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:10:29 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "server.h"
 
-t_list *ft_creat_el(pid_t client)
+t_list	*ft_creat_el(pid_t client)
 {
 	t_list		*new_lst;
 	t_client	*lst_content;
@@ -37,11 +37,11 @@ int	ft_check_content(t_list *lst, pid_t client)
 	return (ft_check_content(lst->next, client));
 }
 
-void ft_free_queue(void *cur_client)
+void	ft_free_queue(void *cur_client)
 {
-	t_client *client;
+	t_client	*client;
 
-	client = cur_client; 
+	client = cur_client;
 	if (client->curent_str)
 		free(client->curent_str);
 	free(cur_client);
@@ -49,14 +49,14 @@ void ft_free_queue(void *cur_client)
 
 void	ft_delete_queue(t_list **queue)
 {
-	t_list *buffer;
+	t_list	*buffer;
 
 	buffer = (*queue)->next;
 	ft_lstdelone(*queue, &ft_free_queue);
 	*queue = buffer;
 }
 
-int		ft_queue(pid_t client, t_list **queue)
+int	ft_queue(pid_t client, t_list **queue)
 {
 	t_list	*new_client;
 

@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:24:24 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/09 14:36:10 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:09:38 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@
 # define REP_SIZE 2
 # define REP_STR 3
 
-
-typedef struct	s_client
+typedef struct s_client
 {
 	pid_t	client_pid;
 	int		action;

@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:24:08 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/09 14:37:10 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:06:01 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_rep_signal(int signal, t_client *client)
 	}
 	if (signal == SIGUSR1)
 		client->curent_str[client->size - 1] |= 1 << client->c_bite;
-	if (++(client->c_bite)  == 8)
+	if (++(client->c_bite) == 8)
 		client->c_bite = 0;
 	if (client->curent_str[client->size - 1] == '\0' && client->c_bite == 0)
 	{
@@ -63,8 +63,9 @@ int	ft_current_client(t_client *client, int signal)
 int	ft_use_sigal(int signal, pid_t c_client, int del_queue)
 {
 	static t_list	*queue = NULL;
-	int				buffer = 0;
+	int				buffer;
 
+	buffer = 0;
 	if (del_queue)
 		return (ft_delete_queue(&queue), 0);
 	if (c_client == -1)
