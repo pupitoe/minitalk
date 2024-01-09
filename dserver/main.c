@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 10:02:12 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/06 19:30:34 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/09 01:27:07 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int	main(void)
 		if (g_free_instruction == 0)
 		{
 			g_free_instruction--;
-			ft_rep_signal(0, 1);
+			ft_use_sigal(0, 0, 1);
+			ft_use_sigal(SIGUSR1, -1, 0);
 		}
 		if (g_free_instruction > 0)
 			g_free_instruction--;

@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:24:24 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/09 01:05:55 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/09 01:19:51 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 void	ft_get_signal(int signal, siginfo_t *info, void *ucontext);
 int		ft_rep_signal(int signal, int delet);
+int		ft_use_sigal(int signal, pid_t c_client, int del_queue);
 extern int	g_free_instruction;
 
 typedef struct	s_client
