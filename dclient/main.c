@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:09:39 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/09 00:21:08 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/09 01:46:48 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ int	main(int argc, char **argv)
 	sa.sa_sigaction = &ft_client_handler;
 	if (sigaction(SIGUSR1, &sa, NULL) == -1)
 		return (ft_putstr("SIGACTION fails\n"));
+	g_pid_server = pid;
 	if (ft_call_server(pid) == -1)
 		return (ft_putstr("Signal transmission error\n"));
-	g_pid_server = pid;
 	if (ft_socket_string(argv[2], pid) == -1)
 		return (ft_putstr("Signal transmission error\n"));
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:24:08 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/09 01:25:59 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/09 02:37:26 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,14 @@ int	ft_rep_signal(int signal, int delet)
 		i = 0;
 		return (FULL_STR);
 	}
+	return (FINISH_PACKET);
+}
+
+int	ft_tcp_client(pid_t pid)
+{
+	usleep(100);
+	if (kill(pid, SIGUSR1) == -1)
+		return (-1);
 	return (0);
 }
 
@@ -50,11 +58,14 @@ int	ft_current_client(t_client *client, int signal)
 	if (client->action == 0)
 	{
 		client->action += 1;
-		if (kill(client->client_pid, SIGUSR1) == -1)
-			buffer = -1;
+		buffer = ft_tcp_client(client->client_pid);
 	}
 	else if (client->action == 1)
 		buffer = ft_rep_signal(signal, 0);
+	if (buffer == FINISH_PACKET)
+		buffer = ft_tcp_client(client->client_pid);
+	else if (buffer == FULL_STR)
+		ft_tcp_client(client->client_pid);
 	return (buffer);
 }
 
