@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 00:27:39 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/09 02:18:58 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/09 14:14:03 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ t_list *ft_creat_el(pid_t client)
 	new_lst = ft_lstnew(lst_content);
 	if (new_lst == NULL)
 		return (free(lst_content), NULL);
+	ft_bzero(lst_content, sizeof(t_client));
 	lst_content->client_pid = client;
-	lst_content->action = 0;
 	return (new_lst);
 }
 

@@ -6,15 +6,19 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:24:24 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/09 01:52:59 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/09 14:17:12 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SERVER_H
 # define SERVER_H
 # include "../commun/commun.h"
-# define FULL_STR 1
+# define FULL_STR 4
 # define FINISH_PACKET 69
+# define NO_ACTION 0
+# define PUSH_FIRST_PACKET 1
+# define REP_SIZE 2
+# define REP_STR 3
 
 void	ft_get_signal(int signal, siginfo_t *info, void *ucontext);
 int		ft_rep_signal(int signal, int delet);
@@ -25,6 +29,9 @@ typedef struct	s_client
 {
 	pid_t	client_pid;
 	int		action;
+	char	*curent_str;
+	size_t	size;
+	int		c_bite;
 }				t_client;
 
 int		ft_queue(pid_t client, t_list **queue);
