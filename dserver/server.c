@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:24:08 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/09 15:06:01 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:28:44 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ int	ft_current_client(t_client *client, int signal)
 	if (buffer == FINISH_PACKET)
 		buffer = ft_tcp_client(client->client_pid);
 	else if (buffer == FULL_STR)
+	{
 		ft_tcp_client(client->client_pid);
+		g_free_instruction = -1;
+	}
 	return (buffer);
 }
 
@@ -83,12 +86,8 @@ int	ft_use_sigal(int signal, pid_t c_client, int del_queue)
 		ft_delete_queue(&queue);
 	if (buffer == MALLOC_FAIL)
 		return (ft_lstclear(&queue, &free), exit(-12), 0);
-	if (buffer == FULL_STR)
-	{
-		g_free_instruction = -1;
-		if (queue != NULL)
-			ft_use_sigal(1, ((t_client *)queue->content)->client_pid, 0);
-	}
+	if (buffer == FULL_STR && queue != NULL)
+		ft_use_sigal(1, ((t_client *)queue->content)->client_pid, 0);
 	return (0);
 }
 
