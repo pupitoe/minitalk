@@ -1,11 +1,12 @@
 SOURCES_COMMUN =	ft_put_string.c \
 					ft_put_string2.c \
-					ft_itoa.c
-SOURCES_CLIENT = 	client.c \
+					ft_itoa_over.c
+SOURCES_CLIENT = 	main.c \
 					client_handler.c \
 					ft_call_server.c
 SOURCES_SERVER = 	main.c \
-					server.c
+					server.c \
+					queue.c
 
 SOURCES_C = $(foreach buffer, $(SOURCES_CLIENT), dclient/$(buffer))
 
@@ -28,7 +29,7 @@ NAME = minitalk
 LIBFT = libft/libft.a
 
 CFLAGS = -Wall -Wextra -Werror -g3
-CC = gcc
+CC = cc
 
 all: $(NAME)
 
@@ -38,7 +39,7 @@ $(NAME_C): $(OBJS_C) $(LIBFT)
 $(NAME_S): $(OBJS_S) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS_S) $(LIBFT) -o $(NAME_S)
 
-$(NAME): $(NAME_C) $(NAME_S)
+$(NAME): $(NAME_S) $(NAME_C)
 
 $(LIBFT):
 	make -C libft

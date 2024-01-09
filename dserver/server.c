@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:24:08 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/08 23:17:31 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/09 01:04:52 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,58 +40,47 @@ int	ft_rep_signal(int signal, int delet)
 	return (0);
 }
 
-
-t_list *ft_creat_el(pid_t client)
+int	ft_current_client(t_client *client, int signal)
 {
-	t_list		*new_lst;
-	t_client	*lst_content;
-
-	lst_content = malloc(sizeof(t_client));
-	if (lst_content == NULL)
-		return (NULL);
-	new_lst = ft_lstnew(lst_content);
-	if (new_lst == NULL)
-		return (free(lst_content), NULL);
-	lst_content->client_pid = client;
-	return (new_lst);
-}
-
-int	ft_check_content(t_list *lst, pid_t client)
-{
-	if (lst == NULL)
+	g_free_instruction = 3;
+	if (client->action == 0)
+	{
+		client->action++;
+		if (kill(client->client_pid, SIGUSR1) == -1)
+			return (-1);
 		return (0);
-	if ((t_client)lst->content == client)
-		return (1);
-	return (ft_check_content(lst->next, client));
+	}
+	if (client->action == 1)
+	{
+		if (ft_rep_signal(signal, 0) == MALLOC_FAIL)
+			return (MALLOC_FAIL);
+	}
+	return (0);
 }
 
-int		ft_queue(pid_t client, t_list *queue)
+int	ft_use_sigal(int signal, siginfo_t *info, int del_queue)
 {
-	t_list	*new_client;
+	static t_list	*queue = NULL;
+	int				buffer = 0;
 
-
+	if (del_queue)
+		return (ft_delete_queue(&queue), ft_rep_signal(0, 1), 0);
+	if (ft_queue(info->si_pid, &queue) == MALLOC_FAIL)
+		return (ft_lstclear(&queue, &free), ft_rep_signal(0, 1), exit(-12), 0);
+	if (info->si_pid != ((t_client *)queue->content)->client_pid)
+		return (0);
+	buffer = ft_current_client(queue->content, signal);
+	if (buffer == FULL_STR)
+		g_free_instruction = -1;
+	if (buffer == -1 || buffer == FULL_STR)
+		ft_delete_queue(&queue);
+	if (buffer == MALLOC_FAIL)
+		return (ft_lstclear(&queue, &free), ft_rep_signal(0, 1), exit(-12), 0);
 	return (0);
 }
 
 void	ft_get_signal(int signal, siginfo_t *info, void *ucontext)
 {
-	static pid_t	client_pid = -1;
-
-	if (client_pid == -1)
-		client_pid = info->si_pid;
-	else if (client_pid != info->si_pid)
-	{
-		client_pid = info->si_pid;
-		ft_rep_signal(0, 1);
-	}
-	if (ft_rep_signal(signal, 0) == -1)
-		exit(1);
-	usleep(100);
-	if (kill(client_pid, SIGUSR1) == -1)
-	{
-		ft_rep_signal(0, 1);
-		exit(1);
-	}
-	g_free_instruction = 3;
+	ft_use_sigal(signal, info, 0);
 	(void)ucontext;
 }
