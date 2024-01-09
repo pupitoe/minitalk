@@ -6,7 +6,7 @@
 /*   By: tlassere <tlassere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:24:24 by tlassere          #+#    #+#             */
-/*   Updated: 2024/01/09 18:17:44 by tlassere         ###   ########.fr       */
+/*   Updated: 2024/01/09 20:02:22 by tlassere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_client
 	int		action;
 	char	*curent_str;
 	size_t	size;
+	size_t	index;
 	int		c_bit;
 	char	c_buffer;
 }				t_client;
